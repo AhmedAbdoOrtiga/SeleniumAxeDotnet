@@ -51,12 +51,14 @@ namespace Selenium.Axe.Test
 
                     ChromeDriverService service = ChromeDriverService.CreateDefaultService(Environment.CurrentDirectory);
                     service.SuppressInitialDiagnosticInformation = true;
-                    _webDriver = new ChromeDriver(Environment.CurrentDirectory, options);
+                    var chromeDriverDirectory = Environment.GetEnvironmentVariable("chromedriver");
+                    _webDriver = new ChromeDriver(chromeDriverDirectory ?? Environment.CurrentDirectory, options);
                     
                     break;
 
                 case "FIREFOX":
-                    _webDriver = new FirefoxDriver();
+                    var geckoDriverDirectory = Environment.GetEnvironmentVariable("geckodriver");
+                    _webDriver = new FirefoxDriver(geckoDriverDirectory ?? Environment.CurrentDirectory);
                     break;
 
                 default:

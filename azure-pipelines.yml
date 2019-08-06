@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name: Hosted Windows 2019 with VS2019
+  name: Hosted VS2017
   demands:
   - msbuild
   - visualstudio
@@ -25,6 +25,12 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+- script: 'npm uninstall chromedriver'
+  displayName: 'Uninstall chromedriver'
+
+- script: 'npm install chromedriver@73'
+  displayName: 'Install chromedriver'
 
 - task: VSBuild@1
   inputs:
